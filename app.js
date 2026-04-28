@@ -7,19 +7,28 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import productRoutes from "./routes/product.route.js";
 
-dotenv.config(); 
+dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: "*" }));
+
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://mern-crash-khaki.vercel.app",
+    "https://mern-crash-course-ws83-fkx16sgwd-nisarfatima166-coders-projects.vercel.app"
+  ],
+  credentials: true
+}));
+
 app.use(express.json());
 
-connectDB(); 
+connectDB();
 
 app.use("/api/products", productRoutes);
 
 app.get("/", (req, res) => {
-  res.send("API is working 🚀");
+  res.send("API working 🚀");
 });
 
 export default app;
